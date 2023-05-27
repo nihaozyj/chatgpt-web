@@ -4,6 +4,9 @@ $(document).ready(function () {
   var chatInput = $('#chatInput')
   var chatWindow = $('#chatWindow')
 
+  // 输入框获取焦点
+  chatInput.focus()
+
   // 存储对话信息,实现连续对话
   var messages = []
 
@@ -86,7 +89,7 @@ $(document).ready(function () {
   // 发送请求获得响应
   async function sendRequest(data) {
     controller = new AbortController()
-    const response = await fetch(config.url, {
+    const response = await fetch(`${config.url}/v1/chat/completions`, {
       signal: controller.signal,
       method: 'POST',
       headers: {
@@ -292,6 +295,26 @@ $(document).ready(function () {
       localStorage.setItem('prompt', prompt)
     } else {
       localStorage.removeItem('prompt')
+    }
+  })
+
+  // 请求接口地址
+  const baseurl = localStorage.getItem('baseurl')
+
+  if (baseurl) {
+    $(".settings-common .baseurl").val(baseurl)
+  }
+
+  // 请求接口地址输入框事件
+  $(".settings-common .baseurl").blur(function () {
+    const baseurl = $(this).val().trim()
+
+    if (baseurl != "") {
+      localStorage.setItem('baseurl', baseurl)
+      config.url = baseurl
+    } else {
+      localStorage.removeItem('baseurl')
+      config.url = 'https://api.openai.com'
     }
   })
 

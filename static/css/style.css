@@ -273,6 +273,7 @@ input[type="checkbox"]:checked+.check-trail .check-handler::before {
   box-shadow: none;
   height: 34px;
   background-color: var(--bg-color);
+  color: var(--font-color);
 }
 
 .answer .ipt textarea:focus {
