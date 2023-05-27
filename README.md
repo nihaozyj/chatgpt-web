@@ -1,5 +1,7 @@
  **chatgpt by html** 基于 [ **chat-gpt-website** ](https://gitee.com/aniu-666/chat-gpt-website) 二次开发 <br/>
 
+> 如果你使用的是 `Edge` 浏览器，可以点击右上角三个点的 `设置` -> `应用` -> `将此站点作为应用安装`, 这样你每次都能快速启用chatgpt了！！
+
  **界面**
  ![输入图片说明](https://foruda.gitee.com/images/1685167316727617689/74c64121_5681810.png "主界面.png") <br/>
 
