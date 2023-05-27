@@ -2,7 +2,8 @@
 
 > 如果你使用的是 `Edge` 浏览器，可以 [进入已部署的网站](https://easecat_gitee.gitee.io/chatgpt-html/)，然后点击右上角三个点的 `设置` -> `应用` -> `将此站点作为应用安装`, 这样你每次都能快速启用chatgpt了！！
 
- ![输入图片说明](https://foruda.gitee.com/images/1685167316727617689/74c64121_5681810.png "主界面.png") <br/>
+
+![输入图片说明](https://foruda.gitee.com/images/1685167316727617689/74c64121_5681810.png "主界面.png") <br/>
 
  **改进点**
 
