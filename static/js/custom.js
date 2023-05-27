@@ -303,6 +303,7 @@ $(document).ready(function () {
 
   if (baseurl) {
     $(".settings-common .baseurl").val(baseurl)
+    config.url = baseurl
   }
 
   // 请求接口地址输入框事件
