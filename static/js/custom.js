@@ -175,6 +175,8 @@ $(document).ready(function () {
     addRequestMessage(message)
     // 将用户消息保存到数组
     messages.push({ "role": "user", "content": message })
+    // 存放消息记录
+    data.prompts = []
     // 判读是否已开启连续对话
     if (localStorage.getItem('continuousDialogue') == 'true') {
       // 控制上下文，对话长度超过4轮，取最新的3轮,即数组最后7条数据
@@ -185,8 +187,6 @@ $(document).ready(function () {
 
       // 统计用户发送的信息和预设信息的文本长度，该长度不超过 3000
       let wordSize = message.length
-      // 存放消息记录
-      data.prompts = []
       // 添加历史消息
       for (let i = messages.length - 1; i >= 0; i--) {
         // 总长度大于4000（此处取3000，为预设预留了1000的长度），则放弃继续添加历史信息，因为超过4000后的请求会被chatgpt拒绝
@@ -195,7 +195,7 @@ $(document).ready(function () {
         data.prompts.unshift(messages[i])
       }
     } else {
-      data.prompts = [messages[message.length - 1]]
+      data.prompts.push(messages[messages.length - 1])
     }
     // 获取预设
     const proContent = $(".settings-common .prompt").val().trim()
