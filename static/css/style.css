@@ -18,6 +18,26 @@ body {
   color: var(--font-color) !important;
 }
 
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: none;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: none;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: none;
+}
+
 @media screen and (max-width: 768px) {
   .answer .others .common .settings-common span {
     font-size: 85%;
@@ -165,7 +185,7 @@ pre {
 }
 
 .answer .others .common .settings-common .ipt-common {
-  width: 60%;
+  width: 70%;
   opacity: .8;
 }
 
@@ -238,7 +258,6 @@ input[type="checkbox"]:checked+.check-trail .check-handler::before {
   content: "✔";
 }
 
-
 .answer .others .right .screenshot {
   margin-right: 10px;
 }
@@ -254,6 +273,11 @@ input[type="checkbox"]:checked+.check-trail .check-handler::before {
 
 .answer .others .icon-style:hover {
   background-color: rgba(26, 179, 148, .1);
+}
+
+.center>span {
+  color: #1ab394;
+  font-weight: bold;
 }
 
 .answer .ipt {
@@ -349,4 +373,37 @@ ul {
   font-size: 14px;
   color: #1ab394;
   text-decoration: none;
+}
+
+.dropdown-menu {
+  box-shadow: 0 0 4px var(--inferior-color);
+  transform: translateY(-20px);
+}
+
+#myModal .modal-content {
+  background-color: var(--bg-color);
+}
+
+#myModal .modal-content .close {
+  color: var(--font-color);
+}
+
+.modal-body-list {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  max-height: 80vh;
+  overflow-y: scroll;
+  padding: 10px;
+}
+
+.modal-body-list>div {
+  display: inline-block;
+  padding: 3px 6px;
+  border-radius: 5px;
+  margin: 4px;
+  border: 1px solid var(--font-color);
+  cursor: pointer;
+  user-select: none;
 }

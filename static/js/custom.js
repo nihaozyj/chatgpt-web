@@ -88,6 +88,7 @@ $(document).ready(function () {
 
   // 发送请求获得响应
   async function sendRequest(data) {
+    console.log(data)
     controller = new AbortController()
     const response = await fetch(`${config.url}/v1/chat/completions`, {
       signal: controller.signal,
@@ -100,7 +101,7 @@ $(document).ready(function () {
       body: JSON.stringify({
         "messages": data.prompts,
         "model": "gpt-3.5-turbo",
-        "max_tokens": 3500,
+        // "max_tokens": 4000, // 携带该参数后会出现一些莫名其妙的错误
         "temperature": 1,
         "stream": true
       })
@@ -194,8 +195,7 @@ $(document).ready(function () {
         data.prompts.unshift(messages[i])
       }
     } else {
-      data.prompts = messages.slice()
-      data.prompts.splice(0, data.prompts.length - 1) // 未开启连续对话，取最后一条
+      data.prompts = [messages[message.length - 1]]
     }
     // 获取预设
     const proContent = $(".settings-common .prompt").val().trim()
@@ -238,7 +238,6 @@ $(document).ready(function () {
     $('.function .settings .dropdown-menu').css('width', width)
   })
 
-
   // 主题
   function setBgColor(theme) {
     $(':root').attr('bg-theme', theme)
@@ -262,8 +261,6 @@ $(document).ready(function () {
     const selectedTheme = $(this).val()
     localStorage.setItem('theme', selectedTheme)
     $(':root').attr('bg-theme', selectedTheme)
-    // 定位在文档外的元素也同步主题色
-    $('.settings-common').css('background-color', 'var(--bg-color)')
   })
 
   // apiKey
@@ -284,8 +281,12 @@ $(document).ready(function () {
 
   // 预设文本
   const prompt = localStorage.getItem('prompt')
+  const promptName = localStorage.getItem('promptName')
   if (prompt) {
     $(".settings-common .prompt").val(prompt)
+  }
+  if (promptName) {
+    $('#role-name').text(promptName)
   }
 
   // 预设文本输入框事件
@@ -470,6 +471,58 @@ $(document).ready(function () {
       }, 2000)
     })
   }
+
+  var prompts = []
+
+  // 初始化提示词库
+  if (localStorage.prompts) {
+    prompts = JSON.parse(localStorage.prompts)
+  } else {
+    fetch('./static/prompts.json')
+      .then(res => res.json())
+      .then(data => {
+        let i = 100000
+        data.forEach(item => {
+          prompts.push({ id: i++, ...item })
+        })
+      })
+  }
+
+  $('#seletc-role').click(function () {
+    let rolesHtml = ''
+    prompts.forEach(item => {
+      rolesHtml += `<div data-id="${item.id}">${item.act}</div>`
+    })
+
+    $('.modal-body-list').html(rolesHtml)
+
+    $('#myModal').toggleClass('in').show()
+
+    $('.modal-body-list >div').on('click', function () {
+      const id = $(this).data('id')
+      const index = prompts.findIndex(item => item.id == id)
+      const item = prompts[index]
+      $('#role-name').text(item.act)
+      localStorage.promptName = item.act
+      // 设置预设并禁止用户输入自定义预设
+      $(".settings-common .prompt").val(item.prompt).attr('disabled', true)
+      $(".settings-common .prompt").blur()
+      // 将本次选择的提到最前面
+      prompts.splice(index, 1)
+      prompts.unshift(item)
+      $('#myModal').click()
+    })
+  })
+
+  $('#myModal').click(function () {
+    $('#myModal').toggleClass('in').hide()
+  })
+
+  $('#clear-role').click(function () {
+    $(".settings-common .prompt").val('').attr('disabled', false).blur()
+    localStorage.promptName = '自定义预设'
+    $('#role-name').text('自定义预设')
+  })
 
   // 禁用右键菜单
   document.addEventListener('contextmenu', function (e) {

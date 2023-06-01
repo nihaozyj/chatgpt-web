@@ -24,38 +24,41 @@
               <div class="left">
                 <div class="settings common dropup">
                   <a class="dropdown-toggle icon-style" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false" title="设置">
+                     aria-expanded="false" title="设置">
                     <i class="fa fa-cogs fa-lg" aria-hidden="true"></i>
                   </a>
                   <div class="dropdown-menu" style="padding:0;" onclick="event.stopPropagation()">
                     <div class="settings-common">
-                      <span><i class="fa fa fa-linode fa-lg" aria-hidden="true"></i>&nbsp; 主题</span>
+                      <span><i class="fa fa fa-linode fa-lg" aria-hidden="true"></i>&nbsp;主题</span>
                       <select class="form-control ipt-common theme">
                         <option value="light">亮色</option>
                         <option value="dark">暗色</option>
                       </select>
                     </div>
                     <div class="settings-common">
-                      <span><i class="fa fa-key fa-lg" aria-hidden="true"></i>&nbsp; OpenAI Key</span>
+                      <span><i class="fa fa-key fa-lg" aria-hidden="true"></i>&nbsp; OpenAIKey</span>
                       <input type="text" class="form-control ipt-common api-key" placeholder="可用自己的api key">
                     </div>
-                    <!-- 该选择项默认不启用，因为只有一个选择，而 GPT4 太贵了暂时不太实用 -->
-                    <!-- <div class="settings-common">
-                      <span><i class="fa fa-reddit-alien fa-lg" aria-hidden="true"></i>&nbsp; OpenAI 模型</span>
-                      <select class="form-control ipt-common">
-                        <option>gpt-3.5-turbo</option>
-                      </select>
-                    </div> -->
                     <div class="settings-common">
-                      <span><i class="fa fa-reddit-alien fa-lg" aria-hidden="true"></i>&nbsp; 接口地址</span>
+                      <span><i class="fa fa-reddit-alien fa-lg" aria-hidden="true"></i>&nbsp;接口地址</span>
                       <input type="text" class="form-control ipt-common baseurl" placeholder="https://api.openai.com">
                     </div>
                     <div class="settings-common">
-                      <span><i class="fa fa-file-image-o fa-lg" aria-hidden="true"></i>&nbsp; 当前预设内容</span>
-                      <input type="text" class="form-control ipt-common prompt" placeholder="每次对话都会发送该预设内容，如果不需要请留空!">
+                      <span><i class="fa fa-bars fa-lg" aria-hidden="true"></i>&nbsp;当前预设内容</span>
+                      <div style="display: flex; width: 70%;">
+                        <input type="text" class="form-control ipt-common prompt"
+                               placeholder="每次对话都会发送该预设内容，如果不需要请留空!"
+                               style="width: 100%;" />
+                        <button type="button" class="btn btn-success" style="margin-left: 10px;" id="clear-role">
+                          使用自定义预设
+                        </button>
+                        <button type="submit" class="btn btn-primary" style="margin-left: 10px;" id="seletc-role">
+                          系统预设
+                        </button>
+                      </div>
                     </div>
                     <div class="settings-common">
-                      <span><i class="fa fa-floppy-o fa-lg" aria-hidden="true"></i>&nbsp; 记录对话内容，刷新不会消失</span>
+                      <span><i class="fa fa-floppy-o fa-lg" aria-hidden="true"></i>&nbsp;记录对话内容，刷新不会消失</span>
                       <div class="chck-btn">
                         <input id="chck-1" type="checkbox">
                         <label for="chck-1" class="check-trail">
@@ -64,7 +67,8 @@
                       </div>
                     </div>
                     <div class="settings-common">
-                      <span><i class="fa fa-retweet fa-lg" aria-hidden="true"></i>&nbsp; 开启连续对话，加倍消耗tokens</span>
+                      <span><i class="fa fa-retweet fa-lg" aria-hidden="true"></i>&nbsp;
+                        开启连续对话，加倍消耗tokens</span>
                       <div class="chck-btn">
                         <input id="chck-2" type="checkbox">
                         <label for="chck-2" class="check-trail">
@@ -74,6 +78,9 @@
                     </div>
                   </div>
                 </div>
+              </div>
+              <div class="center">
+                正在和 <span id="role-name">聊天机器人</span> 对话
               </div>
               <div class="right">
                 <div class="screenshot common">
@@ -92,6 +99,21 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+  <!-- 预设选择弹出层 -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+       onclick="event.stopPropagation()">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">选择预设</h4>
+        </div>
+        <div class="modal-body-list" onclick="event.stopPropagation()"> </div>
       </div>
     </div>
   </div>
