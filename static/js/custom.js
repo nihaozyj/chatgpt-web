@@ -488,10 +488,10 @@ $(document).ready(function () {
       })
   }
 
-  $('#seletc-role').click(function () {
+  $('#seletc-role,.center').click(function () {
     let rolesHtml = ''
     prompts.forEach(item => {
-      rolesHtml += `<div data-id="${item.id}">${item.act}</div>`
+      rolesHtml += `<div data-id="${item.id}" data-toggle="tooltip" title="${item.prompt}">${item.act}</div>`
     })
 
     $('.modal-body-list').html(rolesHtml)

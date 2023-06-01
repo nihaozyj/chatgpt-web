@@ -407,3 +407,8 @@ ul {
   cursor: pointer;
   user-select: none;
 }
+
+.center {
+  user-select: none;
+  cursor: pointer;
+}
